@@ -4,6 +4,17 @@ class ApplicationController < ActionController::Base
   #devise利用の機能（ユーザ登録、ログイン認証など）が使われる前にconfigure_permitted_parametersメソッドを実行
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  #after_sign_in_path_forはdeviseが用意してるメソッド
+  #サインイン後どこに遷移するか設定
+  def after_sign_in_path_for(resource)  #resource引数には、ログイン実行したモデルのデータ（ログインUserのインスタンス）が格納されてる
+    about_path
+  end
+
+  #サインアウト後どこに遷移するか設定
+  def after_sign_out_path_for(resource)
+    about_path
+  end
+
   protected   #呼び出された他のコントローラからも参照可能（privateは記述したコントローラ内でのみ）
 
   #configure_permitted_parametersメソッド
