@@ -4,10 +4,14 @@
 <% @post_images.each do |post_image| %>
 
   <div>
-    <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
-    <%= image_tag post_image.get_image %>
-    <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
+    <!--link_toで、post_image_path(post_image.id)のリンク先URLを指定。/post_image/:idでリンクが作成される-->
+    <%= link_to post_image_path(post_image.id) do %>
 
+      <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
+      <%= image_tag post_image.get_image %>
+      <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
+
+    <% end %>
 
     <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
 

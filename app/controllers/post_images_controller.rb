@@ -28,13 +28,17 @@ class PostImagesController < ApplicationController
     redirect_to post_images_path
   end
 
+  #投稿一覧の表示
   def index
     #タイムライン上に表示する投稿データを取得
     #@post_imagesにはpost_imagesテーブル内に存在する全てのレコードのインスタンスを代入
     @post_images = PostImage.all
   end
 
+  #詳細画面の表示
   def show
+    #@post_imageには特定のidのPostImageモデルを格納
+    @post_image = PostImage.find(params[:id])
   end
 
   #投稿データのストロングパラメータ
