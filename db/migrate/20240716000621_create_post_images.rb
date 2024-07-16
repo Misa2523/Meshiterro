@@ -8,6 +8,7 @@ class CreatePostImages < ActiveRecord::Migration[6.1]
       t.text :caption       #画像の説明
       t.integer :user_id    #投稿したユーザを識別するID（usersテーブルのidを保存）
 
+      #作られたタイミングと更新されたタイミングを管理
       t.timestamps
     end
   end
