@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   #画像が投稿されない場合のエラー回避
   #アクションと違い、特定の処理を名前で呼び出す
-  def get_profile_image
+  def get_profile_image(width, height)
     unless profile_image.attached?
       #画像が設定されない場合はapp/assets/imagesに格納されているsample-author1.jpgを
           #デフォルト画像としてActiveStorageに格納し、格納した画像を表示する
