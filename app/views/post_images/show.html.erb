@@ -11,4 +11,11 @@
   <!--投稿日付の形式を変換する（'%Y/%m/%d'の記述で年/月/日のフォーマットへ変換）-->
   <p>投稿日：<%= @post_image.created_at.strftime('%Y/%m/%d') %></p>
 
+  <!--投稿削除を実行するリンク-->
+  <!--もし、投稿者==現在ログインしているユーザだったら-->
+  <% if @post_image.user == current_user %>
+    <!--削除ボタン（if式がtrueの場合のみ表示される）-->
+    <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+  <% end %>
+
 </div>
