@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #onlyオプションを使うと生成するルーティングを限定できる
 
   #usersモデルのルーティング
-  resources :users, only: [:show, :edit]
+  resources :users, only: [:show, :edit, :update]
 
   get 'homes/about', to: 'homes#about', as: 'about'
 

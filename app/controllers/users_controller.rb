@@ -8,6 +8,27 @@ class UsersController < ApplicationController
     @post_images = @user.post_images  #アソシエーションを持っているモデル同士の記述方法
   end
 
+  #ユーザー情報の編集機能
   def edit
+    #URLを参考に特定のidを持ったレコードを取得
+    @user = User.find(params[:id])
   end
+
+  #更新機能
+  def update
+    #ユーザーの取得
+    @user = User.find(params[:id])
+    #ユーザーのアップデート
+    @user.update(user_params)
+    #ユーザーの詳細ページへ遷移
+    redirect_to user_path(@user.id)
+  end
+
+  #ストロングパラメータ
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :profile_image)
+  end
+
 end

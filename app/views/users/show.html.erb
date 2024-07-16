@@ -1,7 +1,16 @@
 <!--ユーザーの詳細-->
 <div>
-  <h3><%= @user.name %></h3>    <!--ユーザーの名前-->
-  <%= image_tag @user.get_profile_image(100,100) %>    <!--ユーザーの画像-->
+  <!--ユーザーの名前-->
+  <h3><%= @user.name %></h3>
+  <!--ユーザーの画像-->
+  <%= image_tag @user.get_profile_image(100,100) %>
+
+  <!--ログインしているユーザーに本人のみ編集リンクを表示-->
+  <% if @user == current_user %>
+   <!--詳細画面から編集ページへのリンク-->
+  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
+
 </div>
 
 <!--ユーザーの投稿一覧-->
