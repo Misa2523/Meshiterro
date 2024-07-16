@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   #after_sign_in_path_forはdeviseが用意してるメソッド
   #サインイン後どこに遷移するか設定
   def after_sign_in_path_for(resource)  #resource引数には、ログイン実行したモデルのデータ（ログインUserのインスタンス）が格納されてる
-    about_path
+    post_images_path    #投稿画像の一覧画面(post_images)に遷移
   end
 
   #サインアウト後どこに遷移するか設定

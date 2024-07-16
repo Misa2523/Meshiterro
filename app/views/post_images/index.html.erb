@@ -1,1 +1,26 @@
-<h1>indexページ</h1>
+<!--投稿したPostImageを一覧表示する画面-->
+
+<!--コントローラから渡された@post_images変数内から1つずつ取り出し、post_image変数へ格納-->
+<% @post_images.each do |post_image| %>
+
+  <div>
+    <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
+    <%= image_tag post_image.get_image %>
+    <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
+
+
+    <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+
+    <!--post_image変数のshop_nameカラムを表示-->
+    <p>ショップ名：<%= post_image.shop_name %></p>
+
+    <!--post_image変数のcaptionカラムを表示-->
+    <p>説明：<%= post_image.caption %></p>
+
+    <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
+    <p>ユーザーネーム：<%= post_image.user.name %></p>
+
+    <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
+  </div>
+
+<% end %>

@@ -29,6 +29,9 @@ class PostImagesController < ApplicationController
   end
 
   def index
+    #タイムライン上に表示する投稿データを取得
+    #@post_imagesにはpost_imagesテーブル内に存在する全てのレコードのインスタンスを代入
+    @post_images = PostImage.all
   end
 
   def show
