@@ -23,9 +23,13 @@ class PostImagesController < ApplicationController
             #指定することで投稿データに、今ログイン中のユーザーの ID を持たせることができる。
 
     #PostImageモデルへ保存
-    @post_image.save
-    #投稿一覧画面へリダイレクト
-    redirect_to post_images_path
+    if @post_image.save #対象のカラム（ここではimageとshop_name）にデータが保存されたらtrue
+      #投稿一覧画面へリダイレクト
+      redirect_to post_images_path
+    else
+      #post_images/new.html.erbを表示
+      render :new
+    end
   end
 
   #投稿一覧の表示

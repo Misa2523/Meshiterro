@@ -15,6 +15,12 @@ class PostImage < ApplicationRecord
   #PostImageモデルとFavoriteモデルの関連づけ
   has_many :favorites, dependent: :destroy
 
+  #画像投稿に対し必須入力の設定
+  #shop_nameが存在しているかを確認するバリデーション
+  validates :shop_name, presence: true
+  #imageが存在しているかを確認するバリデーション
+  validates :image, presence: true
+
   #画像が投稿されない場合のエラー回避
   #アクションと違い、特定の処理を名前で呼び出す
   def get_image
