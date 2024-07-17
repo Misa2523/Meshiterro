@@ -1,4 +1,4 @@
-#PostImageコントローラー
+#PostImagesコントローラー
 
 class PostImagesController < ApplicationController
   def top
@@ -39,6 +39,9 @@ class PostImagesController < ApplicationController
   def show
     #@post_imageには特定のidのPostImageモデルを格納
     @post_image = PostImage.find(params[:id])
+
+    #コメントを投稿するためのインスタンス変数を定義
+    @post_comment = PostComment.new
   end
 
   #投稿削除の機能
@@ -54,7 +57,7 @@ class PostImagesController < ApplicationController
   #投稿データのストロングパラメータ
   private
 
-  #post_image_paramsメソッド：フォームで入力されたデータが、投稿データとして許可されているパラメータかチェッ
+  #post_image_paramsメソッド：フォームで入力されたデータが、投稿データとして許可されているパラメータかチェック
   def post_image_params
     params.require(:post_image).permit(:shop_name, :image, :caption)
   end

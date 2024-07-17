@@ -8,6 +8,10 @@ class PostImage < ApplicationRecord
   belongs_to :user
   #１つのUserモデルに関連付くから単数形
 
+  #PostImageモデルとPostCommentモデルの関連づけ（1:Nの1側にあたるモデルにhas_manyを記載）
+  has_many :post_comments, dependent: :destroy
+  #dependent: :destroy → 1:Nの1側が削除されたとき、N側を全て削除する
+
   #画像が投稿されない場合のエラー回避
   #アクションと違い、特定の処理を名前で呼び出す
   def get_image

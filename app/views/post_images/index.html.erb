@@ -24,6 +24,9 @@
     <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
     <p>ユーザーネーム：<%= post_image.user.name %></p>
 
+    <!--コメント件数の表示-->
+    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+
     <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
   </div>
 

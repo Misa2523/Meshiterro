@@ -13,9 +13,12 @@ class User < ApplicationRecord
   #:rememberable（ログイン情報を保存）
   #:validatable（email のフォーマットなどのバリデーション
 
-  #PostImageモデルの関連付け（1:Nの1側にあたるモデルにhas_manyを記載）
+  #UserモデルとPostImageモデルの関連付け（1:Nの1側にあたるモデルにhas_manyを記載）
   has_many :post_images, dependent: :destroy
   #dependent: :destroy → 1:Nの1側が削除されたとき、N側を全て削除する
+
+  #UserモデルとPostCommentモデルの関連づけ
+  has_many :post_comments, dependent: :destroy
 
   #profile_imageという名前で、ActiveStorageでプロフィール画像を保存できるよう設定
   has_one_attached :profile_image
