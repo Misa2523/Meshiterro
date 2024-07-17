@@ -36,7 +36,11 @@ class PostImagesController < ApplicationController
   def index
     #タイムライン上に表示する投稿データを取得
     #@post_imagesにはpost_imagesテーブル内に存在する全てのレコードのインスタンスを代入
-    @post_images = PostImage.all
+    #@post_images = PostImage.all    ↓ページネーションを行うため書き換える
+
+    #1ページ分の決められた数のデータだけを、新しい順に取得
+    @post_images = PostImage.page(params[:page])
+    #pageメソッド：kaminariをインストールしたことで使用可能になったメソッド
   end
 
   #詳細画面の表示
