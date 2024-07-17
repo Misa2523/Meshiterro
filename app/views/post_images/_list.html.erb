@@ -1,0 +1,38 @@
+<!--部分テンプレートファイル-->
+<!--post_images/index.html.erbファイルとusers/show.html.erbファイルの共通部分-->
+
+
+<!--ユーザーの投稿一覧-->
+
+<!--post_images変数内から1つずつ取り出し、post_image変数へ格納-->
+<% post_images.each do |post_image| %>
+<!-- インスタンス変数@post_images を ローカル変数post_images に変更（部分テンプレートが呼び出されたときに、Viewから渡される変数が使えるようにするため）-->
+
+  <div>
+    <!--link_toで、post_image_path(post_image.id)のリンク先URLを指定。/post_image/:idでリンクが作成される-->
+    <%= link_to post_image_path(post_image.id) do %>
+
+      <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
+      <%= image_tag post_image.get_image %>
+      <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
+
+    <% end %>
+
+    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
+
+    <!--post_image変数のshop_nameカラムを表示-->
+    <p>ショップ名：<%= post_image.shop_name %></p>
+
+    <!--post_image変数のcaptionカラムを表示-->
+    <p>説明：<%= post_image.caption %></p>
+
+    <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
+    <p>ユーザーネーム：<%= post_image.user.name %></p>
+
+    <!--コメント件数の表示-->
+    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+
+    <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
+  </div>
+<% end %>
+

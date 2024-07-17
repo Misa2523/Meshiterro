@@ -1,33 +1,7 @@
-<!--投稿したPostImageを一覧表示する画面-->
+<!--投稿したPostImageを一覧表示する画面-->   <!--部分テンプレートファイルへまとめた-->
 
-<!--コントローラから渡された@post_images変数内から1つずつ取り出し、post_image変数へ格納-->
-<% @post_images.each do |post_image| %>
 
-  <div>
-    <!--link_toで、post_image_path(post_image.id)のリンク先URLを指定。/post_image/:idでリンクが作成される-->
-    <%= link_to post_image_path(post_image.id) do %>
-
-      <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
-      <%= image_tag post_image.get_image %>
-      <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
-
-    <% end %>
-
-    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
-
-    <!--post_image変数のshop_nameカラムを表示-->
-    <p>ショップ名：<%= post_image.shop_name %></p>
-
-    <!--post_image変数のcaptionカラムを表示-->
-    <p>説明：<%= post_image.caption %></p>
-
-    <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
-    <p>ユーザーネーム：<%= post_image.user.name %></p>
-
-    <!--コメント件数の表示-->
-    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-
-    <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
-  </div>
-
-<% end %>
+<!--部分テンプレートファイルの呼び出し-->
+<!-- render [部分テンプレートファイルの指定], [ローカル変数]:[渡す値] -->
+<%= render 'list', post_images: @post_images %>
+<!--テンプレートパスの記述は、アンダースコアは省略、拡張子も省略できる。同フォルダ内から呼び出す場合フォルダ名も省略可能。-->
