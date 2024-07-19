@@ -5,34 +5,86 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- FontAwesomeの読み込み (※cssの読み込みより前に書く)-->
+    <script src="https://kit.fontawesome.com/fc3bd943f3.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
     <!--動的なヘッダー-->
-    <header>
-      <% if user_signed_in? %>   <!--devise側で用意しているヘルパーメソッド-->
-        <li>
-          <%= link_to '投稿フォーム', new_post_image_path %>
-        </li>
-        <li>
-          <%= link_to 'マイページ', user_path(current_user.id) %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-      <% else %>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
+    <header class="shadow-sm">
+      <!--navbar：ナビゲーションバー表示、navbar-expand-[ブレークポイント]：ブレイクポイントに応じてナビゲーションバーとナビゲーションアイコンを切り替え表示、
+                            navbar-[カラースキーム]：ナビゲーションのカラースキームの指定j-->
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <!--navbar-brand：ロゴに使用されるnavbarのサポートclass、p-[サイズ]：paddingの指定-->
+          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png') %></a>
+          <!--ナビゲーションアイコン（ハンバーガーメニュー）の表示部分-->
+          <!--navbar-toggler：ナビゲーションアイコンの枠部分、navbar-toggler-icon：ナビゲーションアイコンの三本線の部分-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <!--ナビゲーションアイコンの開閉する動作-->
+          <!--ナビゲーションアイコンを開く前に隠しておきたいメニューは「collapse」classが付与された要素の中に入れる-->
+          <!--「collapse」classを付与している要素に任意のidを付与-->
+          <!--付与したidは「navbar-toggler」classが付与される要素のdata-targetに指定する（頭にセレクタ#をつける）-->
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+
+            <% if user_signed_in? %>   <!--devise側で用意しているヘルパーメソッド-->
+              <li lass="nav-item">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
+              </li>
+              <li lass="nav-item">
+                <%= link_to '投稿フォーム', new_post_image_path, class: 'nav-link text-dark' %>
+              </li>
+              <li lass="nav-item">
+                <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
+              </li>
+            <% else %>
+              <li lass="nav-item">
+                <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
+              </li>
+              <li lass="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
+              </li>
+            <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
 
+    <main class="mb-auto">
     <%= yield %>
+    </main>
+
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <p>善良な市民同士で無差別に食欲を煽るSNS</p>
+            <%= image_tag('logo-white.png') %>
+          </div>
+          <div class="col-md-8">
+            <h6 class="text-white mt-2 mb-3">Link</h6>
+            <ul class="p-0 list-unstyled">
+              <li>
+                <a href="" title="About" class="text-white-50">会社概要</a>
+              </li>
+              <li>
+                <a href="" title="License informations" class="text-white-50">プライバシーポリシー</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>

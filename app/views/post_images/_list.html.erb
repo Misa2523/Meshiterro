@@ -3,38 +3,55 @@
 
 
 <!--ユーザーの投稿一覧-->
+<div class="card-list-container py-5">
 
-<!--post_images変数内から1つずつ取り出し、post_image変数へ格納-->
-<% post_images.each do |post_image| %>
-<!-- インスタンス変数@post_images を ローカル変数post_images に変更（部分テンプレートが呼び出されたときに、Viewから渡される変数が使えるようにするため）-->
+  <!--post_images変数内から1つずつ取り出し、post_image変数へ格納-->
+  <% post_images.each do |post_image| %>
+  <!-- インスタンス変数@post_images を ローカル変数post_images に変更（部分テンプレートが呼び出されたときに、Viewから渡される変数が使えるようにするため）-->
 
-  <div>
-    <!--link_toで、post_image_path(post_image.id)のリンク先URLを指定。/post_image/:idでリンクが作成される-->
+  <!--c投稿部分にはcardというコンポーネントを使用してる。画像とその詳細を表示する際に多く使用されるレイアウト-->
+  <!--cardクラス：以降の子要素で使用するclassが依存する形になる-->
+  <!--その他のクラスはサイズ、padding、margin、影をつけるといったcardの構成には関係ないclass-->
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
     <%= link_to post_image_path(post_image.id) do %>
-
-      <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
-      <%= image_tag post_image.get_image %>
-      <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
-
+      <%= image_tag post_image.get_image, class: "card-img-top"; %>
     <% end %>
 
-    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
+    <!--投稿に関する情報を「card-body」classで包括し、その中で投稿したユーザーのアイコン画像を表示する領域と投稿に関する情報を表示する領域をcolによってグリッドで分けている-->
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag post_image.user.get_profile_image(100,100), class: "mt-3 rounded-circle"; %>
+        </div>
 
-    <!--post_image変数のshop_nameカラムを表示-->
-    <p>ショップ名：<%= post_image.shop_name %></p>
+        <div class="col-10">
+          <p class="card-title">
+            <!--link_toで、post_image_path(post_image.id)のリンク先URLを指定。/post_image/:idでリンクが作成される-->
+          <%= link_to(post_image_path(post_image.id), class: "text-dark") do %>
 
-    <!--post_image変数のcaptionカラムを表示-->
-    <p>説明：<%= post_image.caption %></p>
+            <!--image_tagを使い、post_imageにActiveStorageで設定したimageを表示-->
+            <strong><i class="far fa-flag"></i><span> <%= post_image.shop_name %></span></strong>
+            <!--post_image.get_imageの部分：PostImageモデル内に記述したメソッドの呼び出し-->
 
-    <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
-    <p>ユーザーネーム：<%= post_image.user.name %></p>
+          <% end %>
+          </p>
 
-    <!--コメント件数の表示-->
-    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+          <!--post_image変数のcaptionカラムを表示-->
+          <p class="card-text">説明：<%= post_image.caption %></p>
 
-    <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
+          <span><i class="fas fa-user"></i> By <%= post_image.user.name %> ｜ </span>
+          <span><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id), class: "text-dark" %></span>
+
+          <!--上記のように「.」でモデルのデータを繋いで取得できるのは、アソシエーションでデータの関連付けをしてる場合のみ！-->
+        </div>
+
+      </div>
+    </div>
+
   </div>
-<% end %>
+  <% end %>
 
-<!--ページャの実装：ページ送り機能（ページネーション機能）-->
-<%= paginate post_images %>
+  <!--ページャの実装：ページ送り機能（ページネーション機能）-->
+  <%= paginate post_images %>
+
+</div>
