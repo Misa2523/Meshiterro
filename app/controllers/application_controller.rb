@@ -27,9 +27,8 @@ class ApplicationController < ActionController::Base
 
   #configure_permitted_parametersメソッド
   def configure_permitted_parameters
-     #devise_parameter_sanitizer.permitメソッドを使うことで、ユーザ登録(sign_up)の際にユーザ名(name)のデータ操作を許可している
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    #サインアップ（新規登録）時にemailを許可
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
     #ストロングパラメータと同様の機能
-
   end
 end
