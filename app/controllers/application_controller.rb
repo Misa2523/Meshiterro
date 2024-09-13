@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     about_path
   end
 
-  protected   #呼び出された他のコントローラからも参照可能（privateは記述したコントローラ内でのみ）
+  protected #呼び出された他のコントローラからも参照可能（privateは記述したコントローラ内でのみ）
 
   #configure_permitted_parametersメソッド
   def configure_permitted_parameters
